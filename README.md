@@ -2,6 +2,13 @@
 
 Uma aplicação web moderna e responsiva que combina ferramentas poderosas para manipulação de documentos PDF e Office em uma única interface intuitiva.
 
+## 🌐 Acesso Online
+**🚀 [Acesse a aplicação aqui: ferramentasdoc.netlify.app](https://ferramentasdoc.netlify.app)**
+
+> 📝 **Nota**: Este projeto unifica e moderniza as funcionalidades dos projetos anteriores:
+> - [PDF-LIB](https://github.com/luciomotta/PDF-LIB) - Manipulação de PDFs
+> - [Renderizar-Office-HTML](https://github.com/luciomotta/Renderizar-Office-HTML) - Visualização de arquivos Office
+
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
