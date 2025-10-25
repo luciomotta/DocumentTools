@@ -1,0 +1,40 @@
+{
+  "name": "document-tools",
+  "version": "1.0.0",
+  "description": "Ferramenta unificada para manipulação de documentos PDF e Office",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server . -p 3000 -o",
+    "dev": "npx live-server --port=3000 --open=/index.html",
+    "build": "echo 'Build complete - static files ready for deployment'"
+  },
+  "keywords": [
+    "pdf",
+    "office",
+    "excel",
+    "merger",
+    "converter",
+    "html2pdf",
+    "document",
+    "tools"
+  ],
+  "author": "Document Tools Team",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  },
+  "dependencies": {
+    "pdf-lib": "^1.17.1",
+    "html2pdf.js": "^0.10.1",
+    "xlsx": "^0.18.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luciomotta/Renderizar-Office-HTML.git"
+  },
+  "bugs": {
+    "url": "https://github.com/luciomotta/Renderizar-Office-HTML/issues"
+  },
+  "homepage": "https://github.com/luciomotta/Renderizar-Office-HTML#readme"
+}

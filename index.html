@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferramenta de Manipulação de Documentos</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --bg-color: #f8fafc;
+            --surface-color: #ffffff;
+            --border-color: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--surface-color);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .main {
+            padding: 4rem 0;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tool-card {
+            background: var(--surface-color);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .tool-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .tool-description {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            background: var(--surface-color);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Results section */
+        .results {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-color);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--bg-color);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        tr:hover {
+            background: var(--bg-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tool-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Custom file input */
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-input-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 2rem;
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-color);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .file-input-label:hover {
+            border-color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .file-input-label.drag-over {
+            border-color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: var(--error-color);
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: var(--success-color);
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Pular para o conteúdo principal</a>
+    
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">
+                <i class="fas fa-file-alt"></i>
+                DocumentTools
+            </div>
+            <ul class="nav-links">
+                <li><a href="#pdf-tools" class="nav-link">PDF Tools</a></li>
+                <li><a href="#office-tools" class="nav-link">Office Tools</a></li>
+                <li><a href="#about" class="nav-link">Sobre</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Ferramenta de Manipulação de Documentos</h1>
+            <p>Combine, converta e visualize seus documentos PDF e Office de forma fácil e rápida. Tudo em um só lugar, sem necessidade de instalação.</p>
+        </div>
+    </section>
+
+    <main class="main" id="main">
+        <div class="container">
+            <div class="tools-grid">
+                <!-- PDF Merger Tool -->
+                <div class="tool-card" id="pdf-merger">
+                    <div class="tool-header">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <h3 class="tool-title">Mesclar PDFs</h3>
+                    </div>
+                    <p class="tool-description">
+                        Combine múltiplos arquivos PDF em um único documento de forma rápida e eficiente.
+                    </p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Selecionar arquivos PDF:</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="pdf-files" class="file-input" accept=".pdf" multiple>
+                            <label for="pdf-files" class="file-input-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Clique ou arraste arquivos PDF aqui</span>
+                            </label>
+                        </div>
+                        <div id="pdf-file-list" class="results hidden">
+                            <h4>Arquivos selecionados:</h4>
+                            <ul id="pdf-files-display"></ul>
+                        </div>
+                    </div>
+                    
+                    <button id="merge-pdf-btn" class="btn btn-primary" disabled>
+                        <i class="fas fa-compress-arrows-alt"></i>
+                        Mesclar PDFs
+                    </button>
+                </div>
+
+                <!-- HTML to PDF Tool -->
+                <div class="tool-card" id="html-to-pdf">
+                    <div class="tool-header">
+                        <div class="tool-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="tool-title">HTML para PDF</h3>
+                    </div>
+                    <p class="tool-description">
+                        Converta conteúdo HTML em documentos PDF de alta qualidade.
+                    </p>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="html-content">Conteúdo HTML:</label>
+                        <textarea id="html-content" class="form-input" rows="8" placeholder="Cole seu HTML aqui..."></textarea>
+                    </div>
+                    
+                    <button id="generate-pdf-btn" class="btn btn-primary">
+                        <i class="fas fa-file-export"></i>
+                        Gerar PDF
+                    </button>
+                </div>
+
+                <!-- Office File Renderer -->
+                <div class="tool-card" id="office-renderer">
+                    <div class="tool-header">
+                        <div class="tool-icon">
+                            <i class="fas fa-table"></i>
+                        </div>
+                        <h3 class="tool-title">Visualizar Office</h3>
+                    </div>
+                    <p class="tool-description">
+                        Visualize arquivos do Office (Excel, Word, PowerPoint) diretamente no navegador.
+                    </p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Selecionar arquivo Office:</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="office-file" class="file-input" accept=".xlsx,.xls,.docx,.doc,.pptx,.ppt">
+                            <label for="office-file" class="file-input-label">
+                                <i class="fas fa-file-upload"></i>
+                                <span>Clique ou arraste um arquivo Office aqui</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div id="office-results" class="results hidden">
+                        <h4>Conteúdo do arquivo:</h4>
+                        <div class="table-container">
+                            <table id="office-table"></table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PDF Generator with Template -->
+                <div class="tool-card" id="pdf-generator">
+                    <div class="tool-header">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3 class="tool-title">Gerar Relatório</h3>
+                    </div>
+                    <p class="tool-description">
+                        Gere relatórios PDF personalizados com base em templates predefinidos.
+                    </p>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="report-title">Título do Relatório:</label>
+                        <input type="text" id="report-title" class="form-input" placeholder="Digite o título do relatório">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="report-content">Conteúdo:</label>
+                        <textarea id="report-content" class="form-input" rows="6" placeholder="Digite o conteúdo do relatório..."></textarea>
+                    </div>
+                    
+                    <button id="generate-report-btn" class="btn btn-success">
+                        <i class="fas fa-file-pdf"></i>
+                        Gerar Relatório
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
