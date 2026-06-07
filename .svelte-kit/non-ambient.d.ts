@@ -38,6 +38,6 @@ declare module "$app/types" {
 		};
 		Pathname(): "/";
 		ResolvedPathname(): `${"" | `/${string}`}${ReturnType<AppTypes['Pathname']>}`;
-		Asset(): "/pdf.js/pdf.worker.min.mjs" | string & {};
+		Asset(): "/favicon.svg" | "/pdf.js/pdf.worker.min.mjs" | string & {};
 	}
 }
