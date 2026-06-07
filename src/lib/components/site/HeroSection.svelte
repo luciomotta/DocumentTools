@@ -1,8 +1,5 @@
 <section class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
   <div class="space-y-8">
-    <div class="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200">
-      Refeito com SvelteKit e Tailwind
-    </div>
 
     <div class="space-y-5">
       <h1 class="max-w-3xl font-heading text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-7xl">
@@ -16,22 +13,9 @@
 
     <div class="flex flex-wrap gap-3">
       <a class="tool-button-primary" href="#pdf-tools">Explorar ferramentas</a>
-      <a class="tool-button-ghost" href="#about">Ver detalhes</a>
-    </div>
-
-    <div class="grid gap-4 sm:grid-cols-3">
-      <div class="glass-panel rounded-3xl p-5">
-        <p class="text-sm text-slate-400">Ferramentas</p>
+      <a class="tool-button-ghost" href="#about">Ver detalhes</a> 
+        <p class="text-slate-400">Ferramentas</p>
         <p class="mt-2 font-heading text-3xl font-bold text-white">4</p>
-      </div>
-      <div class="glass-panel rounded-3xl p-5">
-        <p class="text-sm text-slate-400">Stack</p>
-        <p class="mt-2 font-heading text-3xl font-bold text-white">Kit</p>
-      </div>
-      <div class="glass-panel rounded-3xl p-5">
-        <p class="text-sm text-slate-400">UX</p>
-        <p class="mt-2 font-heading text-3xl font-bold text-white">Dark</p>
-      </div>
     </div>
   </div>
 

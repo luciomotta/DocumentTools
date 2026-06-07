@@ -4,29 +4,33 @@
 
   type CompressionMode = 'medium' | 'light' | 'super-light';
 
+  type CompressionPreset = 'lossless' | 'balanced' | 'max';
+
   type CompressedResult = {
     name: string;
     originalSize: number;
     compressedSize: number;
     blob: Blob;
     mode: CompressionMode;
+    percentageSaved: number;
+    processingTime: number;
   };
 
-  const modeConfig: Record<CompressionMode, { label: string; description: string; factor: number }> = {
+  const modeConfig: Record<CompressionMode, { label: string; description: string; preset: CompressionPreset }> = {
     medium: {
       label: 'Médio',
       description: 'Equilibra tamanho e preservação visual.',
-      factor: 0.85
+      preset: 'balanced'
     },
     light: {
       label: 'Leve',
       description: 'Redução mais agressiva para arquivos comuns.',
-      factor: 0.7
+      preset: 'max'
     },
     'super-light': {
       label: 'Super leve',
       description: 'Máxima redução com maior perda de fidelidade.',
-      factor: 0.55
+      preset: 'max'
     }
   };
 
@@ -34,6 +38,8 @@
   let compressionMode = $state<CompressionMode>('medium');
   let isCompressing = $state(false);
   let results = $state<CompressedResult[]>([]);
+  let compressionProgress = $state(0);
+  let compressionStatus = $state('');
   let alertMessage = $state('');
   let alertType = $state<'success' | 'error' | 'info'>('info');
   let alertTimeout: ReturnType<typeof setTimeout> | undefined;
@@ -68,28 +74,24 @@
   }
 
   async function compressSinglePdf(file: File, mode: CompressionMode) {
-    const { PDFDocument } = await import('pdf-lib');
+    const { compress } = await import('@quicktoolsone/pdf-compress');
     const pdfBytes = await file.arrayBuffer();
-    const pdfDoc = await PDFDocument.load(pdfBytes);
 
-    if (mode !== 'medium') {
-      pdfDoc.setTitle('');
-      pdfDoc.setAuthor('');
-      pdfDoc.setSubject('');
-      pdfDoc.setKeywords([]);
-      pdfDoc.setProducer('DocumentTools PDF Compressor');
-      pdfDoc.setCreator('DocumentTools');
-      pdfDoc.setCreationDate(new Date());
-      pdfDoc.setModificationDate(new Date());
-    }
+    const result = await compress(pdfBytes, {
+      preset: modeConfig[mode].preset,
+      onProgress: (event) => {
+        compressionProgress = event.progress;
+        compressionStatus = event.message ?? 'Processando PDF...';
+      }
+    });
 
-    const saveOptions = {
-      useObjectStreams: true,
-      addDefaultPage: false
-    } as const;
-
-    const compressedBytes = await pdfDoc.save(saveOptions);
-    return new Blob([compressedBytes], { type: 'application/pdf' });
+    return {
+      blob: new Blob([result.pdf], { type: 'application/pdf' }),
+      originalSize: result.stats.originalSize,
+      compressedSize: result.stats.compressedSize,
+      percentageSaved: result.stats.percentageSaved,
+      processingTime: result.stats.processingTime
+    };
   }
 
   async function compressFiles() {
@@ -100,18 +102,23 @@
 
     isCompressing = true;
     results = [];
+    compressionProgress = 0;
+    compressionStatus = 'Preparando arquivos...';
 
     try {
       const compressedResults: CompressedResult[] = [];
 
       for (const file of selectedFiles) {
-        const blob = await compressSinglePdf(file, compressionMode);
+        compressionStatus = `Comprimindo ${file.name}`;
+        const compressed = await compressSinglePdf(file, compressionMode);
         compressedResults.push({
           name: file.name,
-          originalSize: file.size,
-          compressedSize: blob.size,
-          blob,
-          mode: compressionMode
+          originalSize: compressed.originalSize,
+          compressedSize: compressed.compressedSize,
+          blob: compressed.blob,
+          mode: compressionMode,
+          percentageSaved: compressed.percentageSaved,
+          processingTime: compressed.processingTime
         });
       }
 
@@ -122,6 +129,7 @@
       showAlert('Não foi possível comprimir os PDFs.', 'error');
     } finally {
       isCompressing = false;
+      compressionStatus = '';
     }
   }
 
@@ -139,6 +147,8 @@
   function clearAll() {
     selectedFiles = [];
     results = [];
+    compressionProgress = 0;
+    compressionStatus = '';
   }
 </script>
 
@@ -218,6 +228,19 @@
     </button>
   </div>
 
+  {#if isCompressing}
+    <div class="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
+      <div class="flex items-center justify-between gap-3 text-xs uppercase tracking-[0.2em] text-slate-500">
+        <span>Status</span>
+        <span>{compressionProgress}%</span>
+      </div>
+      <p class="mt-2 text-sm text-slate-200">{compressionStatus}</p>
+      <div class="mt-3 h-2 overflow-hidden rounded-full bg-slate-900/80">
+        <div class="h-full rounded-full bg-cyan-400 transition-all" style={`width: ${compressionProgress}%`}></div>
+      </div>
+    </div>
+  {/if}
+
   {#if results.length}
     <div class="mt-6 rounded-[1.75rem] border border-white/10 bg-slate-950/50 p-5">
       <div class="flex items-center justify-between gap-3">
@@ -232,9 +255,11 @@
               <div>
                 <p class="font-medium text-white">{result.name}</p>
                 <p class="mt-1 text-xs text-slate-400">
-                  {formatBytes(result.originalSize)} → {formatBytes(result.compressedSize)}
+                  {formatBytes(result.originalSize)} → {formatBytes(result.compressedSize)} · {result.percentageSaved.toFixed(1)}% menor
                 </p>
-                <p class="mt-1 text-xs uppercase tracking-[0.2em] text-fuchsia-300">Perfil {modeConfig[result.mode].label}</p>
+                <p class="mt-1 text-xs uppercase tracking-[0.2em] text-fuchsia-300">
+                  Perfil {modeConfig[result.mode].label} · {Math.max(0, Math.round(result.processingTime / 1000))}s
+                </p>
               </div>
 
               <button class="tool-button-ghost self-start sm:self-center" type="button" onclick={() => downloadResult(result)}>

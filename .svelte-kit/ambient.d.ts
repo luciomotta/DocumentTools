@@ -58,6 +58,7 @@ declare module '$env/static/private' {
 	export const COLORTERM: string;
 	export const WSL_DISTRO_NAME: string;
 	export const COLOR: string;
+	export const NVM_DIR: string;
 	export const WAYLAND_DISPLAY: string;
 	export const LOGNAME: string;
 	export const NAME: string;
@@ -89,11 +90,13 @@ declare module '$env/static/private' {
 	export const PWD: string;
 	export const npm_execpath: string;
 	export const COPILOT_DEBUG_NONCE: string;
+	export const NVM_CD_FLAGS: string;
 	export const XDG_DATA_DIRS: string;
 	export const npm_config_global_prefix: string;
 	export const npm_command: string;
 	export const WSL2_GUI_APPS_ENABLED: string;
 	export const HOSTTYPE: string;
+	export const NVM_RC_VERSION: string;
 	export const WSLENV: string;
 	export const INIT_CWD: string;
 	export const EDITOR: string;
@@ -204,6 +207,7 @@ declare module '$env/dynamic/private' {
 		COLORTERM: string;
 		WSL_DISTRO_NAME: string;
 		COLOR: string;
+		NVM_DIR: string;
 		WAYLAND_DISPLAY: string;
 		LOGNAME: string;
 		NAME: string;
@@ -235,11 +239,13 @@ declare module '$env/dynamic/private' {
 		PWD: string;
 		npm_execpath: string;
 		COPILOT_DEBUG_NONCE: string;
+		NVM_CD_FLAGS: string;
 		XDG_DATA_DIRS: string;
 		npm_config_global_prefix: string;
 		npm_command: string;
 		WSL2_GUI_APPS_ENABLED: string;
 		HOSTTYPE: string;
+		NVM_RC_VERSION: string;
 		WSLENV: string;
 		INIT_CWD: string;
 		EDITOR: string;
