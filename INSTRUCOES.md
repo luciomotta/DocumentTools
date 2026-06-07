@@ -7,29 +7,29 @@ Combinei com sucesso os dois projetos (`PDF-LIB-1` e `Renderizar-Office-HTML`) e
 ## 📁 Arquivos Criados na Pasta Principal
 
 ```
-📁 Juntar_sites_arquivos/
-├── 🌟 index.html              # Aplicação principal unificada
-├── ⚡ script.js               # Lógica JavaScript
-├── 🎨 styles.css              # Estilos adicionais e animações
+📁 DocumentTools/
 ├── 📦 package.json            # Dependências e scripts
 ├── 📖 README.md               # Documentação completa
-├── 🎯 demo.html               # Página de demonstração
-├── 📊 exemplo_funcionarios.csv # Arquivo de exemplo para teste
-└── 📝 INSTRUCOES.md           # Este arquivo
+├── 📝 INSTRUCOES.md           # Este arquivo
+├── ⚙️ svelte.config.js        # Configuração do SvelteKit
+├── ⚙️ vite.config.js          # Configuração do Vite
+├── 🎨 src/app.css             # Estilos globais
+├── 🧩 src/lib/                # Componentes e utilitários compartilhados
+└── 🗺️ src/routes/             # Rotas da aplicação
 ```
 
 ## 🚀 Como Usar
 
 ### Opção 1: Abrir diretamente
-1. **Dê um duplo clique** no arquivo `index.html`
-2. Ele abrirá no seu navegador padrão
-3. Comece a usar imediatamente!
+1. Instale as dependências com `npm install`
+2. Execute `npm run dev`
+3. Acesse `http://localhost:5173`
 
 ### Opção 2: Servidor local (Recomendado)
 1. Abra o terminal na pasta do projeto
 2. Execute: `npm install` (primeira vez)
 3. Execute: `npm start` ou `npm run dev`
-4. Acesse: `http://localhost:3000`
+4. Acesse: `http://localhost:5173`
 
 ## 🎯 Funcionalidades Disponíveis
 
@@ -52,8 +52,7 @@ Combinei com sucesso os dois projetos (`PDF-LIB-1` e `Renderizar-Office-HTML`) e
 - **Antes**: Básico, pouco responsivo
 - **Agora**: Tabela moderna, responsiva, scroll horizontal
 - **Como testar**: 
-  - Use o arquivo `exemplo_funcionarios.csv`
-  - Ou carregue seu próprio XLSX/XLS
+  - Use seu próprio arquivo XLSX/XLS
   - Visualização instantânea
 
 ### 📑 4. Gerar Relatórios (NOVO!)
@@ -211,7 +210,7 @@ Transformei dois projetos separados em uma ferramenta unificada, moderna e profi
 
 O resultado é uma aplicação que não apenas funciona, mas impressiona pela qualidade e atenção aos detalhes.
 
-**🚀 Ready to use! Open `index.html` and enjoy your new unified document tool!**
+**🚀 Ready to use! Run `npm run dev` and enjoy your new unified document tool!**
 
 ---
 

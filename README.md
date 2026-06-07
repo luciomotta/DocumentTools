@@ -1,6 +1,6 @@
 # 📄 Ferramenta de Manipulação de Documentos
 
-Uma aplicação web moderna e responsiva que combina ferramentas poderosas para manipulação de documentos PDF e Office em uma única interface intuitiva.
+Uma aplicação web moderna e responsiva reconstruída em SvelteKit + Tailwind para combinar ferramentas de PDF e Office em uma única interface intuitiva.
 
 ## 🌐 Acesso Online
 **🚀 [Acesse a aplicação aqui: ferramentasdoc.netlify.app](https://ferramentasdoc.netlify.app)**
@@ -34,23 +34,18 @@ Uma aplicação web moderna e responsiva que combina ferramentas poderosas para 
 
 ## 🚀 Como Usar
 
-### Opção 1: Abrir diretamente no navegador
-1. Clone ou baixe este repositório
-2. Abra o arquivo `index.html` em seu navegador
-3. Comece a usar as ferramentas imediatamente!
-
-### Opção 2: Usar servidor local (Recomendado)
+### Rodar localmente
 ```bash
-# Instalar dependências (opcional, para desenvolvimento)
 npm install
-
-# Iniciar servidor local
-npm start
-# ou
 npm run dev
 ```
 
-O site será aberto automaticamente em `http://localhost:3000`
+O projeto sobe com Vite/SvelteKit e normalmente fica disponível em `http://localhost:5173`.
+
+### Gerar build de produção
+```bash
+npm run build
+```
 
 ## 🎯 Como Usar Cada Ferramenta
 
@@ -78,13 +73,11 @@ O site será aberto automaticamente em `http://localhost:3000`
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Frontend**: HTML5, CSS3 (Custom Properties), JavaScript ES6+
+- **Frontend**: SvelteKit, Tailwind CSS, TypeScript
 - **Bibliotecas**:
   - [PDF-lib](https://pdf-lib.js.org/) - Manipulação de PDFs
   - [html2pdf.js](https://github.com/eKoopmans/html2pdf.js) - Conversão HTML para PDF
   - [SheetJS](https://sheetjs.com/) - Processamento de arquivos Excel
-  - [Font Awesome](https://fontawesome.com/) - Ícones
-  - [Google Fonts](https://fonts.google.com/) - Tipografia (Inter)
 
 ## 🎨 Design e UX
 
@@ -106,11 +99,15 @@ O site será aberto automaticamente em `http://localhost:3000`
 
 ```
 document-tools/
-├── index.html          # Página principal
-├── script.js           # Lógica da aplicação
-├── package.json        # Dependências e scripts
-├── README.md          # Este arquivo
-└── assets/            # Recursos adicionais (se necessário)
+├── src/
+│   ├── app.css
+│   └── routes/
+│       ├── +layout.svelte
+│       └── +page.svelte
+├── package.json
+├── svelte.config.js
+├── vite.config.js
+└── tailwind.config.cjs
 ```
 
 ## 🚀 Melhorias Implementadas
