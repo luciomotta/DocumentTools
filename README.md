@@ -6,7 +6,7 @@
 Uma aplicação web moderna e responsiva reconstruída em SvelteKit + Tailwind para combinar ferramentas de PDF e Office em uma única interface intuitiva.
 
 ## 🌐 Acesso Online
-**🚀 [Acesse a aplicação aqui: ferramentasdoc.netlify.app](https://ferramentasdoc.netlify.app)**
+**🚀 [Acesse a aplicação aqui: ferramentasdoc.netlify.app](https://toolsdoc.netlify.app/)**
 
 > 📝 **Nota**: Este projeto unifica e moderniza as funcionalidades dos projetos anteriores:
 > - [PDF-LIB](https://github.com/luciomotta/PDF-LIB) - Manipulação de PDFs
